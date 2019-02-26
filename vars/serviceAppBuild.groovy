@@ -3,7 +3,7 @@
 import main.com.service.git.*
 import main.com.service.compile.*
 import main.com.service.tools.*
-import com.main.service.config.*
+import main.com.service.config.*
 
 def call(body)
 {

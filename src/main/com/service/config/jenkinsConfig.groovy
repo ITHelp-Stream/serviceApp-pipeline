@@ -1,6 +1,6 @@
 #!/bin/groovy
 
-package com.main.service.config
+package main.com.service.config
 
 def setupJenkinsConfig(){
 
