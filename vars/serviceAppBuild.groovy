@@ -11,6 +11,7 @@ def call(body)
    body.resolveStrategy = Closure.DELEGATE_FIRST
    body.delegate = config
    body()
+   timestamps {
    def g = new git()
    def com = new buildcompile()
    def java = new  jdk()
@@ -53,6 +54,8 @@ def call(body)
   try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
             def jen = new jenkinsConfig()
+			def arc = new archive()
+			arc.createArch()
 			jen.setupJenkinsConfig()
           }
         }
@@ -90,4 +93,5 @@ def call(body)
   
   }
  }
+  }
   }
