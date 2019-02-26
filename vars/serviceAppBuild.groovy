@@ -3,6 +3,7 @@
 import main.com.service.git.*
 import main.com.service.compile.*
 import main.com.service.tools.*
+import com.main.service.config.*
 
 def call(body)
 {
@@ -14,6 +15,7 @@ def call(body)
    def com = new buildcompile()
    def java = new  jdk()
    def m2 = new maven()
+   
    
   stage ('Install all Devops Tools'){
 	try {
@@ -47,6 +49,21 @@ def call(body)
         }
   
   }
+  stage ('Prepare Job configuration'){
+  try {
+            wrap([$class: 'AnsiColorBuildWrapper']) {
+            def jen = new jenkinsConfig()
+			jen.setupJenkinsConfig()
+          }
+        }
+        catch (error)
+        {
+          wrap([$class: 'AnsiColorBuildWrapper']) {
+              echo "Configuration Initializing Failed..."
+              throw error
+          }
+        }
+ }
   stage ('checkout git'){
   try {
       g.gitsourcecode()
