@@ -54,8 +54,6 @@ def call(body)
   try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
             def jen = new jenkinsConfig()
-			def arc = new archive()
-			arc.createArch()
 			jen.setupJenkinsConfig()
           }
         }
@@ -92,6 +90,22 @@ def call(body)
           }
   
   }
+ }
+ stage ('Archive Artifacts'){
+ try {
+            wrap([$class: 'AnsiColorBuildWrapper']) {
+            def arc = new archive()
+			arc.createArch()
+		 }
+        }
+        catch (error)
+        {
+          wrap([$class: 'AnsiColorBuildWrapper']) {
+              echo "Configuration Initializing Failed..."
+              throw error
+          }
+        }
+ 
  }
   }
   }
