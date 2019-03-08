@@ -13,7 +13,7 @@ def setMavenHome(VERSION){
    }
    catch (error) {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-        print "\u001B[41m[ERROR]: failed to failed to set Maven ."
+        print "[ERROR]: failed to failed to set Maven ."
         throw error
      }
    }
