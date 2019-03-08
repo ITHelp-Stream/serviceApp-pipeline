@@ -11,7 +11,7 @@ try {
 	 }
 	 catch (error) {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-         print "\u001B[41m[ERROR]: failed to setup the Jenkins Configuration.."
+         print "[ERROR]: failed to setup the Jenkins Configuration.."
         throw error
      }
    }
