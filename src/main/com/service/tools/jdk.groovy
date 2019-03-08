@@ -12,7 +12,7 @@ try {
 	 }
 	 catch (error) {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-         print "\u001B[41m[ERROR]: failed to set JAVA_HOME to.."
+         print "[ERROR]: failed to set JAVA_HOME to.."
         throw error
      }
    }
