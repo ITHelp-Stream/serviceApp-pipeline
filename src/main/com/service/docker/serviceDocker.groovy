@@ -7,7 +7,7 @@ try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
 	print "INFO => triggering docker build for $APP_IMAGE_NAME please wait..."
         sh "cd ${WORKSPACE}"
-	sh "docker build -t ${APP_IMAGE_NAME} --file=${DOCKERFILE_PATH} ${WORKSPACE}"
+	sh "docker build -t ${APP_IMAGE_NAME} --file=${DOCKERFILE_PATH} ${WORKSPACE}/sm-shop"
 	}
 	}
     catch (error) {
