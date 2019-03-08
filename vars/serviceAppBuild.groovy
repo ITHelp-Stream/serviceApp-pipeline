@@ -112,8 +112,8 @@ def call(body)
  try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
             def doc = new serviceDocker()
-			def DOCKER_IMAGE_NAME=serviceapp:1.0.0
-			def DOCKERFILE_PATH= ${WORKSPACE}/sm-shop/Dockerfile
+			def DOCKER_IMAGE_NAME= "serviceapp:1.0.0"
+			def DOCKERFILE_PATH= "${WORKSPACE}"/sm-shop/Dockerfile
 			doc.createDockerImage( ${DOCKER_IMAGE_NAME}, ${DOCKERFILE_PATH})
 		 }
         }
@@ -125,6 +125,6 @@ def call(body)
           }
         }
  
- }
+	}
   }
-  }
+}
