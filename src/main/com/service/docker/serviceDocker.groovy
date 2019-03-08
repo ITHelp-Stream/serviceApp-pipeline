@@ -2,11 +2,12 @@
 
 package main.com.service.docker
 
-def createDockerImage(DOCKER_IMAGE_NAME, DOCKERFILE_PATH){
+def createDockerImage(String APP_IMAGE_NAME , String DOCKERFILE_PATH){
 try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
-	sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} "
-    print "\u001B[32m[INFO]: Docker Image Successfully Created..."
+	print "\u001B[51mINFO => triggering docker build for $SERVICE_NAME  please wait..."
+        sh "cd ${WORKSPACE}"
+	sh "docker build -t ${APP_IMAGE_NAME} --file=${DOCKERFILE_PATH} ${WORKSPACE}"
 	}
 	}
     catch (error) {
