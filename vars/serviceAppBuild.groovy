@@ -69,12 +69,12 @@ def call(body)
   stage ('checkout git'){
   try {
       g.gitsourcecode()
-      echo "\u001B[41m[SUCCESS] Source Code successfully downloaded"
+      echo "[SUCCESS] Source Code successfully downloaded"
       }
       catch (Exception error)
       {
           wrap([$class: 'AnsiColorBuildWrapper']) {
-          echo "\u001B[41m[ERROR] ${error}"
+          echo "[ERROR] ${error}"
           throw error
           }
       }
@@ -86,7 +86,7 @@ def call(body)
           }
           catch (Exception error){
           wrap([$class: 'AnsiColorBuildWrapper']) {
-            print "\u001B[41m[INFO]: ${error}"
+            print "[INFO]: ${error}"
             throw error
           }
   
