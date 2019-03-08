@@ -4,6 +4,7 @@ import main.com.service.git.*
 import main.com.service.compile.*
 import main.com.service.tools.*
 import main.com.service.config.*
+import main.com.service.docker.*
 
 def call(body)
 {
@@ -102,6 +103,24 @@ def call(body)
         {
           wrap([$class: 'AnsiColorBuildWrapper']) {
               echo "Configuration Initializing Failed..."
+              throw error
+          }
+        }
+ 
+ }
+ stage ('Create Docker Images'){
+ try {
+            wrap([$class: 'AnsiColorBuildWrapper']) {
+            def doc = new serviceDocker()
+			def DOCKER_IMAGE_NAME=serviceapp:1.0.0
+			def DOCKERFILE_PATH= ${WORKSPACE}/sm-shop/Dockerfile
+			doc.createDockerImage( ${DOCKER_IMAGE_NAME}, ${DOCKERFILE_PATH})
+		 }
+        }
+        catch (error)
+        {
+          wrap([$class: 'AnsiColorBuildWrapper']) {
+              echo "Docker Image creation Failed..."
               throw error
           }
         }
