@@ -7,7 +7,7 @@ try {
     wrap([$class: 'AnsiColorBuildWrapper']) {
 	print "INFO => Deleting Docker images.. please wait..."
         sh "cd ${WORKSPACE}"
-	sh "docker rmi -f `$(docker images)`"
+	sh "docker rmi -f \$(docker images)"
 	}
 	}
     catch (error) {
