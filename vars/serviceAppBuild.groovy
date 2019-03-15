@@ -129,7 +129,7 @@ def call(body)
             def doc = new serviceDocker()
 	    //def DOCKER_IMAGE_NAME= "serviceapp:1.2.3"
 	    //def DOCKERFILE_PATH= "${WORKSPACE}/sm-shop/Dockerfile"
-	    doc.createDockerImage("serviceapp:1.2.3", "sm-shop/Dockerfile")
+	    doc.createDockerImage("nogiboina/serviceapp:1.2.3", "sm-shop/Dockerfile")
 		 }
         }
         catch (error)
