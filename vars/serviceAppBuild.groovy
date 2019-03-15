@@ -111,14 +111,14 @@ def call(body)
  stage ('Deleting Docker Images'){
  try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
-            def doc = new serviceDocker()
-			doc.deleteDockerImage()
+           // def doc = new serviceDocker()
+			//doc.deleteDockerImage()
 		 }
         }
         catch (error)
         {
           wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Docker Image creation Failed..."
+              echo "Docker images deletion Failed..."
               throw error
           }
         }

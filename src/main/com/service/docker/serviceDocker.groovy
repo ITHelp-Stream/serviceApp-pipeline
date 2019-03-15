@@ -12,7 +12,7 @@ try {
 	}
     catch (error) {
      wrap([$class: 'AnsiColorBuildWrapper']) {
-        print "[ERROR]: Failed to create Image.. please check the console logs"
+        print "[ERROR]: Failed to delete Image.. please check the console logs"
         throw error
      }
    }
