@@ -108,13 +108,11 @@ def call(body)
         }
  
  }
- stage ('Create Docker Images'){
+ stage ('Deleting Docker Images'){
  try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
             def doc = new serviceDocker()
-	    //def DOCKER_IMAGE_NAME= "serviceapp:1.0.0"
-	    //def DOCKERFILE_PATH= "${WORKSPACE}/sm-shop/Dockerfile"
-	    doc.createDockerImage("serviceapp:1.0.0", "sm-shop/Dockerfile")
+			doc.deleteDockerImage()
 		 }
         }
         catch (error)
@@ -124,7 +122,39 @@ def call(body)
               throw error
           }
         }
- 
 	}
+ stage ('Create Docker Images'){
+ try {
+            wrap([$class: 'AnsiColorBuildWrapper']) {
+            def doc = new serviceDocker()
+	    //def DOCKER_IMAGE_NAME= "serviceapp:1.2.3"
+	    //def DOCKERFILE_PATH= "${WORKSPACE}/sm-shop/Dockerfile"
+	    doc.createDockerImage("serviceapp:1.2.3", "sm-shop/Dockerfile")
+		 }
+        }
+        catch (error)
+        {
+          wrap([$class: 'AnsiColorBuildWrapper']) {
+              echo "Docker Image creation Failed..."
+              throw error
+          }
+        }
+ 	}
+stage ('Pusing Docker Images'){
+ try {
+            wrap([$class: 'AnsiColorBuildWrapper']) {
+            def doc = new serviceDocker()
+	        doc.pushDockerImage("docker.io/nogiboina","serviceapp:1.2.3")
+		 }
+        }
+        catch (error)
+        {
+          wrap([$class: 'AnsiColorBuildWrapper']) {
+              echo "Docker Image creation Failed..."
+              throw error
+          }
+        }
+ 	}
+
   }
 }
