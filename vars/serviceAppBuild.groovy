@@ -3,9 +3,6 @@
 import main.com.service.git.*
 import main.com.service.compile.*
 import main.com.service.tools.*
-import main.com.service.config.*
-import main.com.service.docker.*
-import main.com.service.kube.*
 
 def call(body)
 {
@@ -23,7 +20,7 @@ def call(body)
   stage ('Install all Devops Tools'){
 	try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
-            def VERSION = "Jdk1.8"
+            def VERSION = "Java1.8"
             java.setJavaHome("${VERSION}")
 
           }
@@ -52,21 +49,7 @@ def call(body)
         }
   
   }
-  stage ('Prepare Job configuration'){
-  try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-            def jen = new jenkinsConfig()
-			jen.setupJenkinsConfig()
-          }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Configuration Initializing Failed..."
-              throw error
-          }
-        }
- }
+ 
   stage ('checkout git'){
   try {
       g.gitsourcecode()
@@ -93,88 +76,6 @@ def call(body)
   
   }
  }
- stage ('Archive Artifacts'){
- try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-            def arc = new archive()
-			arc.createArch()
-		 }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Configuration Initializing Failed..."
-              throw error
-          }
-        }
- 
- }
- stage ('Deleting Docker Images'){
- try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-           // def doc = new serviceDocker()
-			//doc.deleteDockerImage()
-		 }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Docker images deletion Failed..."
-              throw error
-          }
-        }
-	}
- stage ('Create Docker Images'){
- try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-            def doc = new serviceDocker()
-	    //def DOCKER_IMAGE_NAME= "serviceapp:1.2.3"
-	    //def DOCKERFILE_PATH= "${WORKSPACE}/sm-shop/Dockerfile"
-	    doc.createDockerImage("nogiboina/serviceapp:1.2.3", "sm-shop/Dockerfile")
-		 }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Docker Image creation Failed..."
-              throw error
-          }
-        }
- 	}
-stage ('Pusing Docker Images'){
- try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-            def doc = new serviceDocker()
-	        doc.pushDockerImage("docker.io/nogiboina","serviceapp:1.2.3")
-			sleep 120
-		 }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Docker Image creation Failed..."
-              throw error
-          }
-        }
- 	}
-	
-stage ('Create Kube Service'){
- try {
-            wrap([$class: 'AnsiColorBuildWrapper']) {
-            def kube = new kubeResources()
-	       kube.createService("sm-shop/serviceApp/serviceapp-service.yml")
-			sleep 120
-		 }
-        }
-        catch (error)
-        {
-          wrap([$class: 'AnsiColorBuildWrapper']) {
-              echo "Docker Image creation Failed..."
-              throw error
-          }
-        }
- 	}
-	
 
   }
 }
