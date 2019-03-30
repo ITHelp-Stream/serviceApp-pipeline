@@ -20,7 +20,7 @@ def call(body)
   stage ('Install all Devops Tools'){
 	try {
             wrap([$class: 'AnsiColorBuildWrapper']) {
-            def VERSION = "Java1.8"
+            def VERSION = "Java1.9"
             java.setJavaHome("${VERSION}")
 
           }
